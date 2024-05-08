@@ -1,0 +1,112 @@
+﻿@model FormData
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Опитування відвідувачів ресторану</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label for="it-s">Ім'я</label>
+                    <input type="text" class="form-control" id="it-s" name="it-s" placeholder="Введіть ваше ім'я" required>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Номер телефону</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Введіть ваш номер телефону" required>
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Адреса електронної пошти</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Введіть вашу адресу електронної пошти" required>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="date">Дата візиту</label>
+                    <input type="date" class="form-control" id="date" name="date" required>
+                    <span asp-validation-for="VisitDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="years">Вік</label>
+                    <input type="number" class="form-control" id="years" name="years" placeholder="Введіть ваш вік">
+                    <span asp-validation-for="Age" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="favorite-cuisine">Улюблена кухня</label>
+                    <select class="form-control" id="favorite-cuisine" name="favorite-cuisine" required>
+                        <option value="">Оберіть улюблену кухню</option>
+                        <option value="grecki">Грецька</option>
+                        <option value="ukraine">Українська</option>
+                        <option value="italy">Італійська</option>
+                    </select>
+                    <span asp-validation-for="FavoriteCuisine" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="menu-items">Які страви ви б хотіли бачити у меню?</label>
+                    <textarea class="form-control" id="menu-items" name="menu-items" rows="3" required></textarea>
+                    <span asp-validation-for="MenuItems" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Чому ви обрали наш заклад?</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="reason" id="near-home" value="near-home" required>
+                        <label class="form-check-label" for="near-home">
+                            Недалеко від дому
+                        </label>
+                    </div>
+                    <span asp-validation-for="ReasonForChoosing" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="recommend">Чи рекомендували б ви наш заклад друзям і знайомим?</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="recommend" id="yes" value="true" required>
+                        <label class="form-check-label" for="yes">
+                            Так
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="recommend" id="no" value="false" required>
+                        <label class="form-check-label" for="no">
+                            Ні
+                        </label>
+                    </div>
+                    <span asp-validation-for="RecommendToOthers" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Надіслати</button>
+                <button type="reset" class="btn btn-danger">Зкинути</button>
+            </form>
+
+            @if (IsPost)
+            {
+                var formData = new FormData
+                {
+                    Name = Request.Form["it-s"],
+                    Phone = Request.Form["phone"],
+                    Email = Request.Form["email"],
+                    VisitDate = DateTime.Parse(Request.Form["date"]),
+                    Age = string.IsNullOrEmpty(Request.Form["years"]) ? null : (int?)int.Parse(Request.Form["years"]),
+                    FavoriteCuisine = Request.Form["favorite-cuisine"],
+                    MenuItems = Request.Form["menu-items"],
+                    ReasonForChoosing = Request.Form["reason"],
+                    RecommendToOthers = Request.Form["recommend"] == "true"
+                };
+
+                <div class="container mt-5">
+                    <h4>Дані, введені в форму:</h4>
+                    <p>Ім'я: @formData.Name</p>
+                    <p>Телефон: @formData.Phone</p>
+                    <p>Email: @formData.Email</p>
+                    <p>Дата візиту: @formData.VisitDate</p>
+                    <p>Вік: @formData.Age</p>
+                    <p>Улюблена кухня: @formData.FavoriteCuisine</p>
+                    <p>Страви в меню: @formData.MenuItems</p>
+                    <p>Чому ви обрали наш заклад?: @formData.ReasonForChoosing</p>
+                    <p>Чи рекомендували б ви наш заклад друзям і знайомим?: @formData.RecommendToOthers</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

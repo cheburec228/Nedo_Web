@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "View3";
+}
+
+<h2>Enter Side 3</h2>
+
+@using (Html.BeginForm("View3", "C", FormMethod.Post))
+{
+    @Html.TextBox("side3", null, new { @class = "form-control" })
+    <br />
+    <button type="submit" class="btn btn-primary">Next</button>
+}

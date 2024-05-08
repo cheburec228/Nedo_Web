@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Success";
+}
+
+<h2>Успешный вход</h2>
+
+<p>Данные пользователя:</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Адрес</th>
+            <th>Пароль</th>
+            <th>Мейл</th>
+            <th>Логин</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@ViewBag.Account["Address"]</td>
+            <td>@ViewBag.Account["Password"]</td>
+            <td>@ViewBag.Account["Email"]</td>
+            <td>@ViewBag.Account["Username"]</td>
+        </tr>
+    </tbody>
+</table>

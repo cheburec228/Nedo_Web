@@ -1,0 +1,109 @@
+﻿@model User
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .bg-blue {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #6faeff;
+        }
+
+        .container-taps {
+            width: 400px;
+        }
+
+        .taps-container {
+            background-color: #fff;
+            padding: 30px;
+        }
+
+        .tap_bar {
+            display: flex;
+            justify-content: end;
+        }
+
+            .tap_bar button {
+                background-color: #fff;
+                border: none;
+                width: 100px;
+                padding: 10px;
+                background-color: #91c1ff;
+                color: #009dc0;
+                font-weight: bold;
+            }
+
+            .tap_bar .activeTap {
+                background-color: #fff;
+            }
+
+        .btn-sub {
+            text-align: center;
+            background-color: #3687d8;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .validation-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-blue">
+        <div class="container-taps">
+            <header>
+                <div class="tap_bar">
+                    <button class="activeTap" id="login">Login</button>
+                    <button class="" onclick="location.href='@Url.Action("Register", "Account")'">Register</button>
+                </div>
+            </header>
+            <div class="taps-container">
+                <div class="tap" id="tap-login">
+                    <h3>Login</h3>
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                    {
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail" name="Email" aria-describedby="emailHelp">
+                            <span class="validation-error">@Html.ValidationMessageFor(model => model.Email)</span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" name="Password">
+                            <span class="validation-error">@Html.ValidationMessageFor(model => model.Password)</span>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-sub">Login</button>
+                        </div>
+                        if (!string.IsNullOrEmpty(ViewBag.LoginErrorMessage))
+                        {
+                            <div class="alert alert-danger" role="alert" style="text-align: left;padding: 10px; max-width: 250px;">
+                                @ViewBag.LoginErrorMessage
+                            </div>
+                        }
+                        else if (!string.IsNullOrEmpty(ViewBag.LoginSuccessMessage))
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @ViewBag.LoginSuccessMessage
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

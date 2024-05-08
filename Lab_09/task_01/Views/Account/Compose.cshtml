@@ -1,0 +1,24 @@
+﻿@model Message
+
+@{
+    ViewBag.Title = "Compose Message";
+}
+
+<h1>Compose Message</h1>
+
+@using (Html.BeginForm("SendMessage", "Account", FormMethod.Post))
+{
+    <div class="mb-3">
+        @Html.LabelFor(model => model.To)
+        @Html.TextBoxFor(model => model.To, new { @class = "form-control" })
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(model => model.Subject)
+        @Html.TextBoxFor(model => model.Subject, new { @class = "form-control" })
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(model => model.Text)
+        @Html.TextAreaFor(model => model.Text, new { @class = "form-control", rows = "3" })
+    </div>
+    <button type="submit" class="btn btn-primary">Send</button>
+}

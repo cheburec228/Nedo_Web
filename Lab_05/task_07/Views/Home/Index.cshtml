@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Вход</h2>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "loginForm" }))
+{
+    <div id="step1">
+        <div class="form-group">
+            <label for="address">Адрес:</label>
+            <input type="text" class="form-control" id="address" name="address" required>
+        </div>
+        <button type="button" id="nextButton1" class="btn btn-primary">Next</button>
+    </div>
+
+    <div id="step2" style="display: none;">
+        <div class="form-group">
+            <label for="password">Пароль:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="button" id="loginButton" class="btn btn-primary">Войти</button>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger mt-3" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginForm = document.getElementById('loginForm');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const nextButton1 = document.getElementById('nextButton1');
+        const loginButton = document.getElementById('loginButton');
+
+        nextButton1.addEventListener('click', function () {
+            step1.style.display = 'none';
+            step2.style.display = 'block';
+        });
+
+        loginButton.addEventListener('click', function () {
+            loginForm.submit();
+        });
+    });
+</script>

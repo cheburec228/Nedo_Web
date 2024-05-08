@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container mt-4">
+    <div class="border p-4" style="max-width: 500px; margin: 0 auto;">
+        <form method="post" action="/Home/Index" class="mb-3">
+            <style>
+                .form-label {
+                    flex: 0 0 90px; /* Задаем фиксированную ширину 90px для метки */
+                    margin-right: 5px; /* Добавляем отступ справа */
+                    margin-top: 5px;
+                }
+
+                .form-labelL {
+                    flex: 0 0 150px; /* Задаем фиксированную ширину 150px для метки */
+                    margin-right: 5px; /* Добавляем отступ справа */
+                    margin-top: 5px;
+                }
+
+                .form-control {
+                    width: calc(100% - 100px); /* Ширина поля ввода (100%) минус ширина метки (90px) и отступ справа (10px) */
+                }
+
+                    .form-control::placeholder {
+                        max-width: calc(100% - 90px); /* Устанавливаем максимальную ширину для placeholder */
+                        /* Ширина поля ввода (100%) минус ширина метки (90px) и отступ справа (10px) */
+                        white-space: nowrap; /* Предотвращаем перенос текста */
+                        overflow: hidden; /* Скрытие части текста, если он не помещается */
+                        text-overflow: ellipsis; /* Отображаем многоточие, если текст обрезается */
+                    }
+            </style>
+
+            <div class="d-flex mb-2">
+                <p class="form-label">Ім'я:</p>
+                <input type="text" name="Name" class="form-control::placeholder" placeholder="Ім'я" required>
+            </div>
+
+            <div class="d-flex mb-2">
+                <p class="form-label">Телефон:</p>
+                <input type="tel" name="Phone" class="form-control::placeholder" placeholder="Телефон" required>
+            </div>
+
+            <div class="d-flex mb-2">
+                <p class="form-label">Пошта:</p>
+                <input type="email" name="Email" class="form-control::placeholder" placeholder="Пошта" required>
+            </div>
+
+            <div class="d-flex mb-2">
+                <p class="form-labelL">Дата народження:</p>
+                <input type="date" name="DOB" class=".form-control::placeholder" placeholder="Дата народження" required>
+            </div>
+
+            <div class="form-group">
+                <label>Виберіть місто:</label><br>
+                <input type="radio" id="city_harkiv" name="city" value="Харків">
+                <label for="city_harkiv">Харків</label><br>
+                <input type="radio" id="city_kyiv" name="city" value="Київ" checked>
+                <label for="city_kyiv">Київ</label><br>
+                <input type="radio" id="city_odessa" name="city" value="Одеса">
+                <label for="city_odessa">Одеса</label><br>
+                <input type="radio" id="city_zaporizhzhia" name="city" value="Запоріжжя">
+                <label for="city_zaporizhzhia">Запоріжжя</label><br>
+            </div>
+
+            <div class="form-group">
+                <label>Виберіть транспорт:</label><br>
+                <input type="radio" id="transport_bus" name="transport" value="Автобус">
+                <label for="transport_bus">Автобус</label><br>
+                <input type="radio" id="transport_train" name="transport" value="Потяг">
+                <label for="transport_train">Потяг</label><br>
+                <input type="radio" id="transport_plane" name="transport" value="Літак" checked>
+                <label for="transport_plane">Літак</label><br>
+            </div>
+
+            <div class="form-group">
+                <label>Виберіть ваші інтереси:</label><br>
+                <input type="checkbox" id="interest_sport" name="interests" value="Спорт" checked>
+                <label for="interest_sport">Спорт</label><br>
+                <input type="checkbox" id="interest_travel" name="interests" value="Мандрівки">
+                <label for="interest_travel">Мандрівки</label><br>
+                <input type="checkbox" id="interest_crafting" name="interests" value="Майстрування">
+                <label for="interest_crafting">Майстрування</label><br>
+                <input type="checkbox" id="interest_drawing" name="interests" value="Малювання">
+                <label for="interest_drawing">Малювання</label><br>
+            </div>
+
+            <div class="form-group">
+                <label>Міста Словаччини:</label><br>
+                <select name="city_israel" class="form-control::placeholder" required>
+                    <option value="Братислава">Братислава</option>
+                    <option value="Кошице">Кошице</option>
+                    <option value="Прешов">Прешов</option>
+                    <option value="Нитра">Нитра</option>
+                    <option value="Жилина">Жилина</option>
+                    <option value="Банска Бистриця">Банска Бистриця</option>
+                    <option value="Тренчин">Тренчин</option>
+                    <option value="Трнава">Трнава</option>
+                </select>
+            </div>
+
+            <div class="d-flex mb-2">
+                <div class="col">
+                    <button type="submit" class="btn btn-success">Відіслати</button>
+                </div>
+                <div class="col">
+                    <button type="reset" class="btn btn-danger" style="margin-left:-11px;">Скинути</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="border p-3" style="max-width: 500px; margin: 0 auto;">
+        @if (IsPost)
+        {
+            var form = HttpContext.Current.Request.Form;
+            var interests = form["interests"].Replace(",", ", ");
+            <div class="mt-5">
+                <h4>Дані, введені в форму:</h4>
+                <p>Ім'я: @form["Name"]</p>
+                <p>Телефон: @form["Phone"]</p>
+                <p>Пошта: @form["Email"]</p>
+                <p>Дата народження: @form["DOB"]</p>
+                <p>Місто: @form["city"]</p>
+                <p>Місто у Словаччині: @form["city_israel"]</p>
+                <p>Транспорт: @form["transport"]</p>
+                <p>Інтереси: @interests</p>
+            </div>
+        }
+    </div>
+</div>
+
+
+

@@ -1,0 +1,43 @@
+﻿@model User
+
+@{
+    ViewBag.Title = "Edit Profile";
+}
+<style>
+    .validation-error {
+        color: red;
+    }
+</style>
+<div class="container">
+    <h1>Edit Profile</h1>
+    @using (Html.BeginForm("EditProfile", "Account", FormMethod.Post))
+    {
+        <div class="mb-3">
+            @Html.LabelFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+            <span class="validation-error">@Html.ValidationMessageFor(model => model.Name)</span>
+        </div>
+        <div class="mb-3">
+            @Html.LabelFor(model => model.Email)
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @readonly = "readonly" })
+            <span class="validation-error">@Html.ValidationMessageFor(model => model.Email)</span>
+        </div>
+        <div class="mb-3">
+            @Html.LabelFor(model => model.BirthYear)
+            @Html.TextBoxFor(model => model.BirthYear, new { @class = "form-control" })
+            <span class="validation-error">@Html.ValidationMessageFor(model => model.BirthYear)</span>
+        </div>
+        <div class="mb-3">
+            @Html.LabelFor(model => model.BirthMonth)
+            @Html.TextBoxFor(model => model.BirthMonth, new { @class = "form-control" })
+            <span class="validation-error">@Html.ValidationMessageFor(model => model.BirthMonth)</span>
+        </div>
+        <div class="mb-3">
+            @Html.LabelFor(model => model.BirthDay)
+            @Html.TextBoxFor(model => model.BirthDay, new { @class = "form-control" })
+            <span class="validation-error">@Html.ValidationMessageFor(model => model.BirthDay)</span>
+        </div>
+        @Html.HiddenFor(model => model.Password)
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    }
+</div>

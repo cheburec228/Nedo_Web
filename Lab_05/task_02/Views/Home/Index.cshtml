@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>SingleView</title>
+    <style>
+        .wrapper {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container-box {
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px; /* Устанавливаем ширину контейнера */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="container-box">
+            <div class="container mt-4">
+                <h2>Enter Triangle Sides</h2>
+                <form id="triangleForm">
+                    <div class="form-group" id="side1Group">
+                        <label for="side1">Side 1:</label>
+                        <input type="number" class="form-control" id="side1" name="side1" required>
+                    </div>
+                    <div class="form-group" id="side2Group" style="display: none;">
+                        <label for="side2">Side 2:</label>
+                        <input type="number" class="form-control" id="side2" name="side2" required>
+                    </div>
+                    <div class="form-group" id="side3Group" style="display: none;">
+                        <label for="side3">Side 3:</label>
+                        <input type="number" class="form-control" id="side3" name="side3" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+                <div id="result" style="display: none;">
+                    <h2>Results</h2>
+                    <ul>
+                        <li>Side 1: <span id="resultSide1"></span></li>
+                        <li>Side 2: <span id="resultSide2"></span></li>
+                        <li>Side 3: <span id="resultSide3"></span></li>
+                        <li>Perimeter: <span id="perimeter"></span></li>
+                        <li>Longest Side: <span id="longestSide"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const triangleForm = document.getElementById('triangleForm');
+        const side1Group = document.getElementById('side1Group');
+        const side2Group = document.getElementById('side2Group');
+        const side3Group = document.getElementById('side3Group');
+        const resultDiv = document.getElementById('result');
+
+        triangleForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const side1 = parseFloat(document.getElementById('side1').value);
+            const side2 = parseFloat(document.getElementById('side2').value);
+            const side3 = parseFloat(document.getElementById('side3').value);
+
+            document.getElementById('resultSide1').textContent = side1;
+            document.getElementById('resultSide2').textContent = side2;
+            document.getElementById('resultSide3').textContent = side3;
+
+            const perimeter = side1 + side2 + side3;
+            document.getElementById('perimeter').textContent = perimeter;
+
+            const longestSide = Math.max(side1, side2, side3);
+            document.getElementById('longestSide').textContent = longestSide;
+
+            resultDiv.style.display = 'block';
+        });
+
+        side1Group.addEventListener('change', function () {
+            side2Group.style.display = 'block';
+        });
+
+        side2Group.addEventListener('change', function () {
+            side3Group.style.display = 'block';
+        });
+    </script>
+
+</body>
+</html>

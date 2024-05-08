@@ -1,0 +1,32 @@
+﻿@model task_07.Models.RepeatInput
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Repeat Input</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.InputText)
+        @Html.TextBoxFor(model => model.InputText, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.InputText)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RepeatCount)
+        @Html.TextBoxFor(model => model.RepeatCount, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.RepeatCount)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+
+@if (!string.IsNullOrEmpty(Model.ProcessedText))
+{
+    <h3>Processed Text</h3>
+    <p style="white-space: pre-line">@Html.Raw(Model.ProcessedText)</p>
+}

@@ -1,0 +1,187 @@
+﻿@model List<task_01_2.Models.Detail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Опис деталей</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Найменування</th>
+            <th>Тип</th>
+            <th>Кількість</th>
+            <th>Вага 1 деталі (г)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detail in Model)
+        {
+            <tr>
+                <td>@detail.Id</td>
+                <td id="name_@detail.Id">@detail.Name</td>
+                <td id="type_@detail.Id">@detail.Type</td>
+                <td id="quantity_@detail.Id">@detail.Quantity</td>
+                <td id="weight_@detail.Id">@detail.Weight</td>
+                <td>
+                    <!-- Кнопка редактирования -->
+                    <button onclick="editDetail('@detail.Id')">Редагувати</button>
+                    <!-- Кнопка удаления -->
+                    <form action="@Url.Action("DeleteDetail", "Home")" method="post">
+                        <input type="hidden" name="id" value="@detail.Id" />
+                        <button type="submit">Видалити</button>
+                    </form>
+                    <!-- Кнопка сохранения (по умолчанию скрыта) -->
+                    <button id="saveButton_@detail.Id" style="display: none;" onclick="saveDetail('@detail.Id')">Зберегти</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Add New Detail</h2>
+
+<table>
+    <tr>
+        <td>Найменування:</td>
+        <td><input type="text" id="name"></td>
+        <td id="nameError" class="error" style="display:none;"></td>
+    </tr>
+    <tr>
+        <td>Тип:</td>
+        <td><input type="text" id="type"></td>
+        <td id="typeError" class="error" style="display:none;"></td>
+    </tr>
+    <tr>
+        <td>Кількість:</td>
+        <td><input type="number" id="quantity"></td>
+        <td id="quantityError" class="error" style="display:none;"></td>
+    </tr>
+    <tr>
+        <td>Вага (г):</td>
+        <td><input type="number" id="weight"></td>
+        <td id="weightError" class="error" style="display:none;"></td>
+    </tr>
+</table>
+
+<button onclick="addDetail()">Add Detail</button>
+
+<h2>Clear Details Table</h2>
+
+<form action="@Url.Action("ClearTable", "Home")" method="post">
+    <button type="submit">Clear Table</button>
+</form>
+
+<script>
+    function addDetail() {
+        var name = document.getElementById("name").value;
+        var type = document.getElementById("type").value;
+        var quantity = document.getElementById("quantity").value;
+        var weight = document.getElementById("weight").value;
+
+        // Проверка валидности данных перед отправкой
+        if (!name) {
+            document.getElementById("nameError").innerHTML = "Найменування не може бути порожнім.";
+            document.getElementById("nameError").style.display = "block";
+            return;
+        }
+        if (!type || !/^[ЗПО]$/.test(type)) {
+            document.getElementById("typeError").innerHTML = "Тип повинен бути 'З', 'П' або 'О'.";
+            document.getElementById("typeError").style.display = "block";
+            return;
+        }
+        if (!quantity || isNaN(quantity) || quantity <= 0) {
+            document.getElementById("quantityError").innerHTML = "Кількість повинна бути додатним числом.";
+            document.getElementById("quantityError").style.display = "block";
+            return;
+        }
+        if (!weight || isNaN(weight) || weight <= 0) {
+            document.getElementById("weightError").innerHTML = "Вага повинна бути додатним числом.";
+            document.getElementById("weightError").style.display = "block";
+            return;
+        }
+
+        // Создаем объект XMLHttpRequest для отправки данных на сервер
+        var xhr = new XMLHttpRequest();
+
+        // Определяем метод, URL и асинхронность запроса
+        xhr.open("POST", "@Url.Action("AddDetail", "Home")", true);
+
+        // Определяем тип контента
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        // Отправляем запрос с данными детали на сервер
+        xhr.send("name=" + name + "&type=" + type + "&quantity=" + quantity + "&weight=" + weight);
+
+        // После успешной отправки запроса выполняем обновление страницы
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                // Обновляем список деталей на странице
+                location.reload();
+            } else {
+                // В случае ошибки выводим сообщение об ошибке
+                console.error(xhr.statusText);
+            }
+        };
+    }
+
+    function editDetail(id) {
+        // Получаем доступ к элементам ячеек таблицы для редактирования
+        var nameCell = document.getElementById("name_" + id);
+        var typeCell = document.getElementById("type_" + id);
+        var quantityCell = document.getElementById("quantity_" + id);
+        var weightCell = document.getElementById("weight_" + id);
+
+        // Создаем поля для редактирования
+        nameCell.innerHTML = "<input type='text' id='editName_" + id + "' value='" + nameCell.innerText + "' />";
+        typeCell.innerHTML = "<input type='text' id='editType_" + id + "' value='" + typeCell.innerText + "' />";
+        quantityCell.innerHTML = "<input type='number' id='editQuantity_" + id + "' value='" + quantityCell.innerText + "' />";
+        weightCell.innerHTML = "<input type='number' id='editWeight_" + id + "' value='" + weightCell.innerText + "' />";
+
+        // Показываем кнопку Сохранить
+        var saveButton = document.getElementById("saveButton_" + id);
+        saveButton.style.display = "inline";
+    }
+
+    function saveDetail(id) {
+        var newName = document.getElementById("editName_" + id).value;
+        var newType = document.getElementById("editType_" + id).value;
+        var newQuantity = document.getElementById("editQuantity_" + id).value;
+        var newWeight = document.getElementById("editWeight_" + id).value;
+
+        // Проверка валидности данных перед отправкой
+        if (!newName) {
+            alert("Найменування не може бути порожнім.");
+            return;
+        }
+        if (!newType || !/^[ЗПО]$/.test(newType)) {
+            alert("Тип повинен бути 'З', 'П' або 'О'.");
+            return;
+        }
+        if (!newQuantity || isNaN(newQuantity) || newQuantity <= 0) {
+            alert("Кількість повинна бути додатним числом.");
+            return;
+        }
+        if (!newWeight || isNaN(newWeight) || newWeight <= 0) {
+            alert("Вага повинна бути додатним числом.");
+            return;
+        }
+
+        // Отправляем данные на сервер для сохранения изменений
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "@Url.Action("SaveDetail", "Home")", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("id=" + id + "&name=" + newName + "&type=" + newType + "&quantity=" + newQuantity + "&weight=" + newWeight);
+
+        // Обновляем страницу после сохранения изменений
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                location.reload();
+            } else {
+                console.error(xhr.statusText);
+            }
+        };
+    }
+</script>
