@@ -1,4 +1,4 @@
-# Lab 1 - Варіант 2
+# Lab 1 - Варіант 4
 
 ## Task 1
 ![Task 1 - Image 1](img/task1task.png)
