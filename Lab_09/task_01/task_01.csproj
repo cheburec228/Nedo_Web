@@ -178,7 +178,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\QuestionViewModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -208,6 +208,7 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -238,6 +239,7 @@
     <Content Include="Views\Account\Inbox.cshtml" />
     <Content Include="Views\Account\Compose.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\SubmitTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

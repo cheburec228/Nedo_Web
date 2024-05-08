@@ -1,4 +1,4 @@
-﻿@model User
+﻿@model UserProfileViewModel
 
 @{
     ViewBag.Title = "Profile";
@@ -16,17 +16,27 @@
     <div class="container">
         <h1>Profile</h1>
         <div>
-            <p><strong>Name:</strong> @Model.Name</p>
-            <p><strong>Email:</strong> @Model.Email</p>
-            <p><strong>Birth Date:</strong> @Model.BirthYear / @Model.BirthMonth / @Model.BirthDay</p>
+            <p><strong>Name:</strong> @Model.User.Name</p>
+            <p><strong>Email:</strong> @Model.User.Email</p>
+            <p><strong>Birth Date:</strong> @Model.User.BirthYear / @Model.User.BirthMonth / @Model.User.BirthDay</p>
         </div>
-        <a href="@Url.Action("EditProfile", "Account", new { userEmail = Model.Email })" class="btn btn-link text-primary">Edit</a>
+        <div>
+            <p><strong>Test Attempts:</strong></p>
+            <ul>
+                @foreach (var attempt in Model.TestAttempts)
+                {
+                    <li>Attempt @attempt.AttemptNumber: Result - @attempt.Result</li>
+                }
+            </ul>
+        </div>
+
+        <a href="@Url.Action("EditProfile", "Account", new { userEmail = Model.User.Email })" class="btn btn-link text-primary">Edit</a>
 
         <!-- Button for composing a new message -->
-        <a href="@Url.Action("Compose", "Account", new { userEmail = Model.Email })" class="btn btn-primary">Compose Message</a>
+        <a href="@Url.Action("Compose", "Account", new { userEmail = Model.User.Email })" class="btn btn-primary">Compose Message</a>
 
         <!-- Button for viewing messages -->
-        <a href="@Url.Action("Inbox", "Account", new { userEmail = Model.Email })" class="btn btn-secondary">View Messages</a>
+        <a href="@Url.Action("Inbox", "Account", new { userEmail = Model.User.Email })" class="btn btn-secondary">View Messages</a>
 
         <a href="@Url.Action("Index", "Test")" class="btn btn-success">Start Test</a>
     </div>

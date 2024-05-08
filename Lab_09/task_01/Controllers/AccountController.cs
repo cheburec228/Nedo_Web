@@ -91,6 +91,29 @@ public class AccountController : Controller
 
     public ActionResult Profile(string userEmail)
     {
+        List<TestAttempt> testAttempts = new List<TestAttempt>();
+
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
+        {
+            string query = "SELECT AttemptNumber, CorrectAnswersCount FROM TestResults WHERE Email = @Email";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Email", userEmail);
+            connection.Open();
+
+            using (MySqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    TestAttempt attempt = new TestAttempt
+                    {
+                        AttemptNumber = Convert.ToInt32(reader["AttemptNumber"]),
+                        Result = Convert.ToInt32(reader["CorrectAnswersCount"])
+                    };
+                    testAttempts.Add(attempt);
+                }
+            }
+        }
+
         using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
             string query = "SELECT * FROM users WHERE Email = @Email";
@@ -112,8 +135,13 @@ public class AccountController : Controller
                         BirthMonth = Convert.ToInt32(reader["BirthMonth"]),
                         BirthDay = Convert.ToInt32(reader["BirthDay"])
                     };
+                    UserProfileViewModel userProfile = new UserProfileViewModel
+                    {
+                        User = user,
+                        TestAttempts = testAttempts
+                    };
 
-                    return View(user);
+                    return View(userProfile);
                 }
             }
         }

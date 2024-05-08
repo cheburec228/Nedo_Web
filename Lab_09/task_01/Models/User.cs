@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 public class User
 {
@@ -28,4 +29,18 @@ public class User
     [Required(ErrorMessage = "Birth Day is required.")]
     [Range(1, 31, ErrorMessage = "Day must be between 1 and 31.")]
     public int BirthDay { get; set; }
+}
+
+
+public class TestAttempt
+{
+    public int AttemptNumber { get; set; }
+    public int Result { get; set; }
+}
+
+
+public class UserProfileViewModel
+{
+    public User User { get; set; }
+    public List<TestAttempt> TestAttempts { get; set; }
 }
