@@ -1,6 +1,6 @@
 # Lab 8 - Варіант 4
 
-## All tasks in one
+## All tasks
 ![Task 1 - Image 4](Task_all_1.jpg)
 ![Task 1 - Image 4](Task_all_2.jpg)
 ![Task 1 - Image 4](Task_all_3.jpg)
