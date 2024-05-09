@@ -99,7 +99,28 @@
 ![Task 1 - Image 4](Task_2_2.jpg)
 
 ## Task 3
+![Task 1 - Image 4](Task_3_1.jpg)
+![Task 1 - Image 4](Task_3_2.jpg)
 
+## Task 4
+![Task 1 - Image 4](Task_4_1.jpg)
+![Task 1 - Image 4](Task_4_2.jpg)
 
-## Task 4-5
+## Task 5
+![Task 1 - Image 4](Task_5_1.jpg)
+![Task 1 - Image 4](Task_5_2.jpg)
 
+## Task 6
+![Task 1 - Image 4](Task_6_1.jpg)
+![Task 1 - Image 4](Task_6_2.jpg)
+
+## Task 7
+![Task 1 - Image 4](Task_7_1.jpg)
+![Task 1 - Image 4](Task_7_2.jpg)
+
+## Task 8
+![Task 1 - Image 4](Task_8_1.jpg)
+![Task 1 - Image 4](Task_8_2.jpg)
+![Task 1 - Image 4](Task_8_3.jpg)
+![Task 1 - Image 4](Task_8_4.jpg)
+![Task 1 - Image 4](Task_8_5.jpg)
