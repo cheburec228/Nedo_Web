@@ -4,7 +4,8 @@
 
 
 ## Task 2
-
+![Task 1 - Image 4](Task_2_1.jpg)
+![Task 1 - Image 4](Task_2_2.jpg)
 
 ## Task 3
 
